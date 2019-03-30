@@ -1,34 +1,30 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from "react";
+import styled from "styled-components";
 
-import CardView from '../CardView'
+import CardView from "../CardView";
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-`
+`;
+
+const amount = length => Array.from({ length }, (_, i) => i);
 
 class BorderView extends Component {
   state = {
-    cardsAmount: 9,
-  }
+    cardsAmount: amount(12)
+  };
 
   render() {
     return (
       <Container>
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
-        <CardView />
+        {this.state.cardsAmount.map(card => (
+          <CardView key={card} id={card} />
+        ))}
       </Container>
-    )
+    );
   }
 }
 
-export default BorderView
+export default BorderView;
