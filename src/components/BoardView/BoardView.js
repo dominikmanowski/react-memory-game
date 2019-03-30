@@ -1,7 +1,20 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import { amount, randomNr } from "../../helpers";
+
 import CardView from "../CardView";
+
+const backgrounds = {
+  0: "anchors-bg",
+  1: "wiggle-bg",
+  2: "houndstooth-bg",
+  3: "moroccan-bg",
+  4: "zigzag-bg",
+  5: "eyes-bg"
+};
+
+const randomBg = backgrounds[randomNr(0, 5)];
 
 const Container = styled.div`
   display: flex;
@@ -10,8 +23,6 @@ const Container = styled.div`
   max-width: 890px;
   margin: 50px auto 0;
 `;
-
-const amount = length => Array.from({ length }, (_, i) => i);
 
 class BorderView extends Component {
   state = {
@@ -22,7 +33,7 @@ class BorderView extends Component {
     return (
       <Container>
         {this.state.cardsAmount.map(card => (
-          <CardView key={card} id={card} />
+          <CardView key={card} id={card} bg={randomBg} />
         ))}
       </Container>
     );
