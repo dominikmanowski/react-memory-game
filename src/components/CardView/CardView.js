@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const Card = styled.div`
   perspective: 150px;
@@ -7,9 +7,8 @@ const Card = styled.div`
   height: 150px;
   width: 150px;
   margin: 15px;
-`
+`;
 const CardFront = styled.div`
-  background-color: teal;
   height: 150px;
   transition: all 0.8s ease;
   position: absolute;
@@ -20,7 +19,7 @@ const CardFront = styled.div`
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-`
+`;
 
 const CardBack = styled.div`
   background-color: darkturquoise;
@@ -35,22 +34,22 @@ const CardBack = styled.div`
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   transform: rotateY(180deg);
-`
+`;
 
 class CardView extends Component {
   state = {
     isFlipped: false,
-    isGuessed: false,
-  }
+    isGuessed: false
+  };
 
   render() {
     return (
       <Card>
-        <CardFront />
+        <CardFront className={this.props.bg} />
         <CardBack />
       </Card>
-    )
+    );
   }
 }
 
-export default CardView
+export default CardView;
