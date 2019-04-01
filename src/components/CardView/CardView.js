@@ -47,6 +47,13 @@ class CardView extends Component {
       ...this.state,
       isFlipped: !this.state.isFlipped
     });
+
+    setTimeout(() => {
+      this.setState({
+        ...this.state,
+        isFlipped: !this.state.isFlipped
+      });
+    }, 1500);
   };
 
   render() {
