@@ -23,11 +23,3 @@ p {
 body {
   background-color: #fefffe;
 }
-
-.flipped-front {
-  transform: translateX(-180deg);
-}
-
-.flipped-back {
-  transform: translateX(0deg);
-}
