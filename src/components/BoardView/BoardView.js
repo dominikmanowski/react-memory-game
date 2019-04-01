@@ -6,10 +6,10 @@ import { amount, randomNr } from "../../helpers";
 import CardView from "../CardView";
 
 const backgrounds = {
-  0: "anchors-bg",
+  0: "pixel-dots-bg",
   1: "wiggle-bg",
-  2: "houndstooth-bg",
-  3: "moroccan-bg",
+  2: "diagonal-stripes-bg",
+  3: "rain-bg",
   4: "zigzag-bg",
   5: "eyes-bg"
 };
