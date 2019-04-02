@@ -43,16 +43,17 @@ class CardView extends Component {
   };
 
   handleFlippingCard = () => {
-    this.setState({
-      ...this.state,
-      isFlipped: !this.state.isFlipped
-    });
-
-    setTimeout(() => {
+    const changeState = () => {
       this.setState({
         ...this.state,
         isFlipped: !this.state.isFlipped
       });
+    };
+
+    changeState();
+
+    setTimeout(() => {
+      changeState();
     }, 1500);
   };
 
