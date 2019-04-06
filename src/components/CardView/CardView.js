@@ -50,11 +50,12 @@ class CardView extends Component {
       });
     };
 
-    changeState();
+    !this.state.isFlipped && changeState();
 
-    setTimeout(() => {
-      changeState();
-    }, 1500);
+    !this.state.isFlipped &&
+      setTimeout(() => {
+        changeState();
+      }, 1500);
   };
 
   render() {
