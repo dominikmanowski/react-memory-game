@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import _ from "lodash";
+import { random, range } from "lodash";
 import "./BoardView.scss";
 import CardView from "../CardView";
 
@@ -15,11 +15,11 @@ const backgrounds = {
 const CARDS_AMOUNT = 12;
 const BACKGROUNDS_NR = 5;
 
-const randomBg = backgrounds[_.random(BACKGROUNDS_NR)];
+const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
 class BorderView extends Component {
   state = {
-    cardsAmount: _.range(CARDS_AMOUNT)
+    cardsAmount: range(CARDS_AMOUNT)
   };
 
   render() {
