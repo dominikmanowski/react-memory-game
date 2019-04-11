@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 
 import { amount, randomNr } from "../../helpers";
+import { Container } from "./BoardView.styled";
 
 import CardView from "../CardView";
 
@@ -15,14 +15,6 @@ const backgrounds = {
 };
 
 const randomBg = backgrounds[randomNr(0, 5)];
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 890px;
-  margin: 50px auto 0;
-`;
 
 class BorderView extends Component {
   state = {
