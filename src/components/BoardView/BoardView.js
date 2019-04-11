@@ -12,11 +12,14 @@ const backgrounds = {
   5: "eyes-bg"
 };
 
-const randomBg = backgrounds[_.random(0, 5)];
+const CARDS_AMOUNT = 12;
+const BACKGROUNDS_NR = 5;
+
+const randomBg = backgrounds[_.random(BACKGROUNDS_NR)];
 
 class BorderView extends Component {
   state = {
-    cardsAmount: _.range(12)
+    cardsAmount: _.range(CARDS_AMOUNT)
   };
 
   render() {
