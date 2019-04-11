@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./CardView.scss";
 
 class CardView extends Component {
