@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const Card = styled.div`
+.card {
   perspective: 1500px;
   position: relative;
   height: 150px;
@@ -33,4 +31,4 @@ export const Card = styled.div`
       transform: rotateY(0);
     }
   }
-`;
+}

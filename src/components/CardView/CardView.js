@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Card } from "./CardView.styled";
+import "./CardView.scss";
 
 class CardView extends Component {
   state = {
@@ -26,14 +26,14 @@ class CardView extends Component {
 
   render() {
     return (
-      <Card onClick={this.handleFlippingCard}>
+      <div className="card" onClick={this.handleFlippingCard}>
         <div
           className={`${this.props.bg} ${
             this.state.isFlipped ? "front-flipped" : ""
           } front`}
         />
         <div className={`${this.state.isFlipped ? "back-flipped" : ""} back`} />
-      </Card>
+      </div>
     );
   }
 }
