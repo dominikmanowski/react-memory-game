@@ -26,7 +26,7 @@ class CardView extends Component {
 
   render() {
     return (
-      <div className="card" onClick={this.handleFlippingCard}>
+      <div className="game-card" onClick={this.handleFlippingCard}>
         <div
           className={`${this.props.bg} ${
             this.state.isFlipped ? "front-flipped" : ""
