@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./CardView.scss";
 
 class CardView extends Component {
@@ -38,5 +39,10 @@ class CardView extends Component {
     );
   }
 }
+
+CardView.propTypes = {
+  bg: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default CardView;
