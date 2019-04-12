@@ -30,7 +30,7 @@ class CardView extends Component {
     return (
       <div className="game-card" onClick={this.handleFlippingCard}>
         <div
-          className={`${this.props.bg} ${
+          className={`${this.props.background} ${
             this.state.isFlipped ? "front-flipped" : ""
           } front`}
         />
@@ -41,7 +41,7 @@ class CardView extends Component {
 }
 
 CardView.propTypes = {
-  bg: PropTypes.string.isRequired,
+  background: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired
 };
 

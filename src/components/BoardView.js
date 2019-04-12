@@ -26,7 +26,7 @@ class BoardView extends Component {
     return (
       <div className="container">
         {this.state.cardCount.map(card => (
-          <CardView key={card} id={card} bg={randomBg} />
+          <CardView key={card} id={card} background={randomBg} />
         ))}
       </div>
     );
