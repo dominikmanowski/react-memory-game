@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { random, range } from "lodash";
 import "./BoardView.scss";
-import CardView from "./CardView";
+import CardView from "../components/CardView";
 
 const backgrounds = {
   0: "pixel-dots-bg",
