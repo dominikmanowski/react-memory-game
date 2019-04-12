@@ -17,7 +17,7 @@ const BACKGROUNDS_NR = 5;
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
-class BorderView extends Component {
+class BoardView extends Component {
   state = {
     cardCount: range(CARDS_COUNT)
   };
@@ -33,4 +33,4 @@ class BorderView extends Component {
   }
 }
 
-export default BorderView;
+export default BoardView;
