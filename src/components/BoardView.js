@@ -12,20 +12,20 @@ const backgrounds = {
   5: "eyes-bg"
 };
 
-const CARDS_AMOUNT = 12;
+const CARDS_COUNT = 12;
 const BACKGROUNDS_NR = 5;
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
 class BorderView extends Component {
   state = {
-    cardsAmount: range(CARDS_AMOUNT)
+    cardCount: range(CARDS_COUNT)
   };
 
   render() {
     return (
       <div className="container">
-        {this.state.cardsAmount.map(card => (
+        {this.state.cardCount.map(card => (
           <CardView key={card} id={card} bg={randomBg} />
         ))}
       </div>
