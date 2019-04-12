@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import "./CardView.scss";
 
 class CardView extends Component {
-  state = {
-    isFlipped: false,
-    isGuessed: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = { isFlipped: false };
 
-  handleFlippingCard = () => {
+    this.handleFlippingCard = this.handleFlippingCard.bind(this);
+  }
+
+  handleFlippingCard() {
     const changeState = () => {
       this.setState({
         ...this.state,
@@ -21,7 +23,7 @@ class CardView extends Component {
       setTimeout(() => {
         changeState();
       }, 1500);
-  };
+  }
 
   render() {
     return (
