@@ -11,10 +11,10 @@ class CardView extends Component {
 
   handleFlippingCard() {
     const changeState = () => {
-      this.setState({
-        ...this.state,
-        isFlipped: !this.state.isFlipped
-      });
+      this.setState(prevState => ({
+        prevState,
+        isFlipped: !prevState.isFlipped
+      }));
     };
 
     !this.state.isFlipped && changeState();
