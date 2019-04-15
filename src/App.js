@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import Header from './components/HeaderView'
-
-import BoardView from './components/BoardView'
+import React, { Component } from "react";
+import Header from "./components/HeaderView";
+import BoardView from "./components/BoardView";
 
 class App extends Component {
   render() {
@@ -10,8 +9,8 @@ class App extends Component {
         <Header title="React Memory Game" />
         <BoardView />
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
