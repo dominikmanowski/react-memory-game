@@ -1,5 +1,7 @@
 # React Memory Game
 
+![React Memory Game Screenshot](react-memory-game.png "React Memory Game")
+
 ## Game assumptions / functional requirements
 
 - The game consists in choosing two cards showing the same picture from 9 cards.

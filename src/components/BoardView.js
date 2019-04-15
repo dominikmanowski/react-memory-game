@@ -12,21 +12,21 @@ const backgrounds = {
   5: "eyes-bg"
 };
 
-const CARDS_COUNT = 12;
+const CARD_COUNT = 12;
 const BACKGROUNDS_NR = 5;
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
 class BoardView extends Component {
   state = {
-    cardCount: range(CARDS_COUNT)
+    cardCount: range(CARD_COUNT)
   };
 
   render() {
     return (
       <div className="container">
         {this.state.cardCount.map(card => (
-          <CardView key={card} id={card} bg={randomBg} />
+          <CardView key={card} id={card} background={randomBg} />
         ))}
       </div>
     );
