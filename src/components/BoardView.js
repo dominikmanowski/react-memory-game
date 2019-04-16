@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { random, range } from "lodash";
+import { random } from "lodash";
+import randomCardsIds from "../randomCardsIds";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
 
@@ -19,14 +20,20 @@ const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
 class BoardView extends Component {
   state = {
-    cardCount: range(CARD_COUNT)
+    cardCount: randomCardsIds(CARD_COUNT)
   };
 
   render() {
     return (
       <div className="container">
-        {this.state.cardCount.map(card => (
-          <CardView key={card} id={card} background={randomBg} />
+        {this.state.cardCount.map((card, i) => (
+          <CardView
+            key={i}
+            cardKey={i}
+            id={card}
+            background={randomBg}
+            backgroundReverse={`https://picsum.photos/150?image=${card}`}
+          />
         ))}
       </div>
     );
