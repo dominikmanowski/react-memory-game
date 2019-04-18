@@ -19,15 +19,8 @@ const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
 const IMAGE_COUNT = range(85);
 
-const randomCardIds = (n, x = IMAGE_COUNT) => {
-  let array = Array.from(
-    { length: n / 2 },
-    () =>
-      x
-        .splice(random(x.length), 1)
-        .reduce((result, next, index) => (result[index] = next)),
-    []
-  );
+const randomCardIds = (cardCount, imgArr = IMAGE_COUNT) => {
+  let array = shuffle(imgArr).splice(0, cardCount / 2);
 
   const doubledArray = array.concat(array);
 
