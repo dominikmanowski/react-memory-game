@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { random } from "lodash";
-import randomCardsIds from "../randomCardsIds";
+import { random, shuffle, range } from "lodash";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
 
@@ -18,9 +17,26 @@ const BACKGROUNDS_NR = 5;
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
+const IMAGE_COUNT = range(85);
+
+const randomCardIds = (n, x = IMAGE_COUNT) => {
+  let array = Array.from(
+    { length: n / 2 },
+    () =>
+      x
+        .splice(random(x.length), 1)
+        .reduce((result, next, index) => (result[index] = next)),
+    []
+  );
+
+  const doubledArray = array.concat(array);
+
+  return shuffle(doubledArray);
+};
+
 class BoardView extends Component {
   state = {
-    cardCount: randomCardsIds(CARD_COUNT)
+    cardCount: randomCardIds(CARD_COUNT)
   };
 
   render() {
@@ -32,7 +48,7 @@ class BoardView extends Component {
             cardKey={i}
             id={card}
             background={randomBg}
-            backgroundReverse={`https://picsum.photos/150?image=${card}`}
+            cardImgUrl={`https://picsum.photos/150?image=${card}`}
           />
         ))}
       </div>

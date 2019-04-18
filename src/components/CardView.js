@@ -36,7 +36,7 @@ class CardView extends Component {
         />
         <div
           className={`${this.state.isFlipped ? "back-flipped" : ""} back`}
-          style={{ backgroundImage: `url(${this.props.backgroundReverse})` }}
+          style={{ backgroundImage: `url(${this.props.cardImgUrl})` }}
         />
       </div>
     );
@@ -45,7 +45,7 @@ class CardView extends Component {
 
 CardView.propTypes = {
   background: PropTypes.string.isRequired,
-  backgroundReverse: PropTypes.string.isRequired,
+  cardImgUrl: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired
 };
 
