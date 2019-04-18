@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { random, shuffle, range } from "lodash";
+import { random, shuffle } from "lodash";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
 
@@ -17,9 +17,7 @@ const BACKGROUNDS_NR = 5;
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 
-const IMAGE_COUNT = range(85);
-
-const randomCardIds = (cardCount, imgArr = IMAGE_COUNT) => {
+const randomCardIds = (cardCount, imgArr) => {
   let array = shuffle(imgArr).splice(0, cardCount / 2);
 
   const doubledArray = array.concat(array);
@@ -29,8 +27,16 @@ const randomCardIds = (cardCount, imgArr = IMAGE_COUNT) => {
 
 class BoardView extends Component {
   state = {
-    cardCount: randomCardIds(CARD_COUNT)
+    cardCount: []
   };
+
+  componentDidUpdate(oldProps) {
+    if (this.props !== oldProps ) {
+      this.setState({
+        cardCount: randomCardIds(CARD_COUNT, this.props.photoArray)
+      });
+    }
+  }
 
   render() {
     return (
