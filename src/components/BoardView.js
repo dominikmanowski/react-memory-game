@@ -23,9 +23,7 @@ const randomCardIds = (cardCount, imgUrls) => {
   return shuffle(doubledArray);
 };
 
-const IMAGE_COUNT = range(85);
-
-const randomCardIds = (cardCount, imgArr = IMAGE_COUNT) => {
+const randomCardIds = (cardCount, imgArr) => {
   let array = shuffle(imgArr).splice(0, cardCount / 2);
 
   const doubledArray = array.concat(array);
