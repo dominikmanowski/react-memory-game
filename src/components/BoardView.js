@@ -23,6 +23,23 @@ const randomCardIds = (cardCount, imgUrls) => {
   return shuffle(doubledArray);
 };
 
+const IMAGE_COUNT = range(85);
+
+const randomCardIds = (n, x = IMAGE_COUNT) => {
+  let array = Array.from(
+    { length: n / 2 },
+    () =>
+      x
+        .splice(random(x.length), 1)
+        .reduce((result, next, index) => (result[index] = next)),
+    []
+  );
+
+  const doubledArray = array.concat(array);
+
+  return shuffle(doubledArray);
+};
+
 class BoardView extends Component {
   state = {
     cards: [],
