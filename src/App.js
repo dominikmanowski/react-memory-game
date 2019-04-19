@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="React Memory Game" />
-        <BoardView photoArray={this.state.photos} />
+        <BoardView photos={this.state.photos} />
       </div>
     );
   }

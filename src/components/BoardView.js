@@ -15,9 +15,9 @@ const backgrounds = {
 const CARD_COUNT = 12;
 const BACKGROUNDS_NR = 5;
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
-const randomCardIds = (cardCount, imgArr) => {
-  let array = shuffle(imgArr).splice(0, cardCount / 2);
-  const doubledArray = array.concat(array);
+const randomCardIds = (cardCount, imgUrls) => {
+  let halfArray = shuffle(imgUrls).splice(0, cardCount / 2);
+  const doubledArray = halfArray.concat(halfArray);
   return shuffle(doubledArray);
 };
 
@@ -29,7 +29,7 @@ class BoardView extends Component {
   componentDidUpdate(oldProps) {
     if (this.props !== oldProps) {
       this.setState({
-        cardCount: randomCardIds(CARD_COUNT, this.props.photoArray)
+        cardCount: randomCardIds(CARD_COUNT, this.props.photos)
       });
     }
   }
