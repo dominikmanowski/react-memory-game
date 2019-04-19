@@ -23,7 +23,7 @@ class CardView extends Component {
     !this.state.isFlipped &&
       setTimeout(() => {
         changeState();
-      }, 1500);
+      }, 3000);
   }
 
   render() {
