@@ -23,13 +23,13 @@ const randomCardIds = (cardCount, imgUrls) => {
 
 class BoardView extends Component {
   state = {
-    cardCount: []
+    cards: []
   };
 
   componentDidUpdate(oldProps) {
     if (this.props !== oldProps) {
       this.setState({
-        cardCount: randomCardIds(CARD_COUNT, this.props.photos)
+        cards: randomCardIds(CARD_COUNT, this.props.photos)
       });
     }
   }
@@ -37,7 +37,7 @@ class BoardView extends Component {
   render() {
     return (
       <div className="container">
-        {this.state.cardCount.map((card, i) => (
+        {this.state.cards.map((card, i) => (
           <CardView
             key={i}
             cardKey={i}
