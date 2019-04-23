@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { random, shuffle } from "lodash";
+import shortid from "shortid";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
 
@@ -39,7 +40,7 @@ class BoardView extends Component {
       <div className="container">
         {this.state.cards.map((card, i) => (
           <CardView
-            key={i}
+            key={shortid.generate()}
             cardKey={i}
             id={card}
             background={randomBg}
