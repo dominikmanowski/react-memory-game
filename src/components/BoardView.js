@@ -15,6 +15,7 @@ const backgrounds = {
 
 const CARD_COUNT = 12;
 const BACKGROUNDS_NR = 5;
+const PHOTOS_URL = "https://picsum.photos/list";
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 const randomCardIds = (cardCount, imgUrls) => {
   let halfArray = shuffle(imgUrls).splice(0, cardCount / 2);
@@ -24,29 +25,43 @@ const randomCardIds = (cardCount, imgUrls) => {
 
 class BoardView extends Component {
   state = {
-    cards: []
+    cards: [],
+    photos: [],
+    isLoading: false
   };
 
-  componentDidUpdate(oldProps) {
-    if (this.props !== oldProps) {
-      this.setState({
-        cards: randomCardIds(CARD_COUNT, this.props.photos)
-      });
-    }
+  componentDidMount() {
+    this.setState(prevState => ({ ...prevState, isLoading: true }));
+    fetch(PHOTOS_URL)
+      .then(resp => resp.json())
+      .then(images => images.map(image => image.id))
+      .then(photos => {
+        this.setState(prevState => ({
+          ...prevState,
+          isLoading: false,
+          photos,
+          cards: randomCardIds(CARD_COUNT, photos)
+        }));
+      })
+      .catch(error => console.error(error));
   }
 
   render() {
     return (
       <div className="container">
-        {this.state.cards.map((card, i) => (
-          <CardView
-            key={shortid.generate()}
-            cardKey={i}
-            id={card}
-            background={randomBg}
-            cardImgUrl={`https://picsum.photos/150?image=${card}`}
-          />
-        ))}
+        {this.state.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          this.state.cards.map((card, i) => (
+            <CardView
+              key={shortid.generate()}
+              cardKey={i}
+              id={card}
+              background={randomBg}
+              cardImgUrl={`https://picsum.photos/150?image=${card}`}
+            />
+          ))
+        )}
       </div>
     );
   }
