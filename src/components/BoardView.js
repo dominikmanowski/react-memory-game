@@ -26,24 +26,21 @@ const randomCardIds = (cardCount, imgUrls) => {
 class BoardView extends Component {
   state = {
     cards: [],
-    photos: [],
     isLoading: false
   };
 
-  componentDidMount() {
-    this.setState(prevState => ({ ...prevState, isLoading: true }));
-    fetch(PHOTOS_URL)
-      .then(resp => resp.json())
-      .then(images => images.map(image => image.id))
-      .then(photos => {
-        this.setState(prevState => ({
-          ...prevState,
-          isLoading: false,
-          photos,
-          cards: randomCardIds(CARD_COUNT, photos)
-        }));
-      })
-      .catch(error => console.error(error));
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+    const photos = await this.props.getPhotos(PHOTOS_URL);
+    this.setState({
+      cards: randomCardIds(CARD_COUNT, photos)
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.cards !== prevState.cards) {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
