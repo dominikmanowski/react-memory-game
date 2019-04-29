@@ -13,7 +13,7 @@ class CardView extends Component {
   handleFlippingCard() {
     const changeState = () => {
       this.setState(prevState => ({
-        prevState,
+        ...prevState,
         isFlipped: !prevState.isFlipped
       }));
     };
@@ -34,7 +34,10 @@ class CardView extends Component {
             this.state.isFlipped ? "front-flipped" : ""
           } front`}
         />
-        <div className={`${this.state.isFlipped ? "back-flipped" : ""} back`} />
+        <div
+          className={`${this.state.isFlipped ? "back-flipped" : ""} back`}
+          style={{ backgroundImage: `url(${this.props.cardImgUrl})` }}
+        />
       </div>
     );
   }
@@ -42,6 +45,7 @@ class CardView extends Component {
 
 CardView.propTypes = {
   background: PropTypes.string.isRequired,
+  cardImgUrl: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired
 };
 

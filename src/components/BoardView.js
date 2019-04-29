@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { random, range } from "lodash";
+import { random, shuffle } from "lodash";
+import shortid from "shortid";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
 
@@ -14,20 +15,50 @@ const backgrounds = {
 
 const CARD_COUNT = 12;
 const BACKGROUNDS_NR = 5;
-
+const PHOTOS_URL = "https://picsum.photos/list";
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
+const randomCardIds = (cardCount, imgUrls) => {
+  let halfArray = shuffle(imgUrls).splice(0, cardCount / 2);
+  const doubledArray = halfArray.concat(halfArray);
+  return shuffle(doubledArray);
+};
 
 class BoardView extends Component {
   state = {
-    cardCount: range(CARD_COUNT)
+    cards: [],
+    isLoading: false
   };
+
+  async componentDidMount() {
+    this.setState({ isLoading: true });
+    const photos = await this.props.getPhotos(PHOTOS_URL);
+    this.setState({
+      cards: randomCardIds(CARD_COUNT, photos)
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.cards !== prevState.cards) {
+      this.setState({ isLoading: false });
+    }
+  }
 
   render() {
     return (
       <div className="container">
-        {this.state.cardCount.map(card => (
-          <CardView key={card} id={card} background={randomBg} />
-        ))}
+        {this.state.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          this.state.cards.map((card, i) => (
+            <CardView
+              key={shortid.generate()}
+              cardKey={i}
+              id={card}
+              background={randomBg}
+              cardImgUrl={`https://picsum.photos/150?image=${card}`}
+            />
+          ))
+        )}
       </div>
     );
   }
