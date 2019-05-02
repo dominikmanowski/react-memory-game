@@ -11,6 +11,7 @@ class CardView extends Component {
   }
 
   handleFlippingCard() {
+    const DURATION_OF_REVERSAL = 3000;
     const changeState = () => {
       this.setState(prevState => ({
         ...prevState,
@@ -23,7 +24,7 @@ class CardView extends Component {
     !this.state.isFlipped &&
       setTimeout(() => {
         changeState();
-      }, 3000);
+      }, DURATION_OF_REVERSAL);
   }
 
   render() {
