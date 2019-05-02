@@ -1,3 +1,5 @@
+$animation-values: 1.5s forwards alternate 2;
+
 .game-card {
   perspective: 1500px;
   position: relative;
@@ -18,7 +20,7 @@
   }
 
   .front-flipped {
-    animation: flip-front 1.5s forwards alternate 2;
+    animation: flip-front $animation-values;
   }
 
   .back {
@@ -26,7 +28,7 @@
     background-color: darkturquoise;
 
     &-flipped {
-      animation: flip-back 1.5s forwards alternate 2;
+      animation: flip-back $animation-values;
     }
   }
 }
