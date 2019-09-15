@@ -1,21 +1,16 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { random, shuffle } from "lodash";
 import shortid from "shortid";
 import "./BoardView.scss";
 import CardView from "../components/CardView";
+import {
+  CARD_COUNT,
+  BACKGROUNDS_NR,
+  PHOTOS_URL,
+  DURATION_OF_REVERSAL
+} from "../constants/constants";
+import backgrounds from "../constants/backgrounds";
 
-const backgrounds = {
-  0: "pixel-dots-bg",
-  1: "wiggle-bg",
-  2: "diagonal-stripes-bg",
-  3: "rain-bg",
-  4: "zigzag-bg",
-  5: "eyes-bg"
-};
-
-const CARD_COUNT = 12;
-const BACKGROUNDS_NR = 5;
-const PHOTOS_URL = "https://picsum.photos/list";
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
 const randomCardIds = (cardCount, imgUrls) => {
   let halfArray = shuffle(imgUrls).splice(0, cardCount / 2);
@@ -23,45 +18,62 @@ const randomCardIds = (cardCount, imgUrls) => {
   return shuffle(doubledArray);
 };
 
-class BoardView extends Component {
-  state = {
-    cards: [],
-    isLoading: false
+const BoardView = ({ getPhotos }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [cardFlipped, setCardFlipped] = useState(null);
+  const [lastCardFlipped, setLastCardFlipped] = useState(null);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchPhotos = async () => {
+      const photos = await getPhotos(PHOTOS_URL);
+      setCards([...randomCardIds(CARD_COUNT, photos)]);
+    };
+    fetchPhotos();
+  }, []);
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      setIsLoading(false);
+    }
+  }, [cards]);
+
+  const handleFlippingCard = (cardKey, cardId) => {
+    const flipCard = () => {
+      setIsFlipped(true);
+      setCardFlipped(cardKey);
+
+      setTimeout(() => {
+        setIsFlipped(false);
+        setCardFlipped(null);
+        setLastCardFlipped(cardId);
+      }, DURATION_OF_REVERSAL);
+    };
+
+    !isFlipped && flipCard();
   };
 
-  async componentDidMount() {
-    this.setState({ isLoading: true });
-    const photos = await this.props.getPhotos(PHOTOS_URL);
-    this.setState({
-      cards: randomCardIds(CARD_COUNT, photos)
-    });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.cards !== prevState.cards) {
-      this.setState({ isLoading: false });
-    }
-  }
-
-  render() {
-    return (
-      <div className="container">
-        {this.state.isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          this.state.cards.map((card, i) => (
-            <CardView
-              key={shortid.generate()}
-              cardKey={i}
-              id={card}
-              background={randomBg}
-              cardImgUrl={`https://picsum.photos/150?image=${card}`}
-            />
-          ))
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        cards.map((cardId, i) => (
+          <CardView
+            key={shortid.generate()}
+            cardKey={i}
+            cardId={cardId}
+            background={randomBg}
+            cardImgUrl={`https://picsum.photos/150?image=${cardId}`}
+            handleFlippingCard={handleFlippingCard}
+            isFlipped={i === cardFlipped ? isFlipped : null}
+          />
+        ))
+      )}
+    </div>
+  );
+};
 
 export default BoardView;
