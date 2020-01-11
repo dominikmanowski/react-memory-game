@@ -15,14 +15,14 @@ const CardView = ({
   const elRef = useRef(null)
   const { transform } = useSpring({
     transform: `perspective(600px) rotateY(${isFlipped ? -180 : 0}deg)`,
-    config: { mass: 10, tension: 600, friction: 100 }
+    config: { mass: 20, tension: 600, friction: 100 }
   });
   const trans = useCallback((x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`, [])
 
   const calc = useCallback((x, y) => [
-    -((y - elRef.current?.getBoundingClientRect().top) - elRef.current.getBoundingClientRect().height / 2) / 10,
-    ((x - elRef.current.getBoundingClientRect().left) - elRef.current.getBoundingClientRect().width / 2) / 10,
-    1.1
+    ((y - elRef.current?.getBoundingClientRect().top) - elRef.current.getBoundingClientRect().height / 2) / 5,
+    -((x - elRef.current.getBoundingClientRect().left) - elRef.current.getBoundingClientRect().width / 2) / 5,
+    1.05
   ], [])
   const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
 
