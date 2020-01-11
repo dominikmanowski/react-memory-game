@@ -12,6 +12,7 @@ import {
 import backgrounds from "../constants/backgrounds";
 
 const randomBg = backgrounds[random(BACKGROUNDS_NR)];
+
 const randomCardIds = (cardCount, imgUrls) => {
   let halfArray = shuffle(imgUrls).splice(0, cardCount / 2);
   const doubledArray = halfArray.concat(halfArray);
@@ -21,9 +22,11 @@ const randomCardIds = (cardCount, imgUrls) => {
 const BoardView = ({ getPhotos }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState([]);
+  const [keys, setKeys] = useState([]);
   const [isFlipped, setIsFlipped] = useState(false);
   const [cardFlipped, setCardFlipped] = useState(null);
-  const [lastCardFlipped, setLastCardFlipped] = useState(null);
+  const [lastCardFlipped, setLastCardFlipped] = useState({});
+  const [cardsGuessed, setCardsGuessed] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,6 +35,10 @@ const BoardView = ({ getPhotos }) => {
       setCards([...randomCardIds(CARD_COUNT, photos)]);
     };
     fetchPhotos();
+  }, [getPhotos]);
+
+  useEffect(() => {
+    setKeys([...Array.from({ length: CARD_COUNT }, () => shortid.generate())]);
   }, []);
 
   useEffect(() => {
@@ -40,19 +47,46 @@ const BoardView = ({ getPhotos }) => {
     }
   }, [cards]);
 
+  const pushToGuessedCards = (prevState, key1, key2) =>
+    setCardsGuessed([...prevState, key1, key2]);
+
   const handleFlippingCard = (cardKey, cardId) => {
+    const isSameCardTwice = cardKey === lastCardFlipped.key;
+    const areCardsGuessed = cardId === lastCardFlipped.id;
+
     const flipCard = () => {
       setIsFlipped(true);
       setCardFlipped(cardKey);
 
-      setTimeout(() => {
+      if (isSameCardTwice) {
+        setTimeout(() => {
+          setIsFlipped(false);
+          setCardFlipped(null);
+        }, DURATION_OF_REVERSAL);
+        return;
+      }
+
+      if (areCardsGuessed) {
+        pushToGuessedCards(cardsGuessed, lastCardFlipped.key, cardKey);
+      }
+
+      if (cardId !== lastCardFlipped.id) {
+        setTimeout(() => {
+          setIsFlipped(false);
+          setCardFlipped(null);
+          setLastCardFlipped({ id: cardId, key: cardKey });
+        }, DURATION_OF_REVERSAL);
+        return;
+      }
+
+      if (cardId === lastCardFlipped.id) {
+        setCardFlipped(lastCardFlipped.key);
         setIsFlipped(false);
-        setCardFlipped(null);
-        setLastCardFlipped(cardId);
-      }, DURATION_OF_REVERSAL);
+        setLastCardFlipped({});
+      }
     };
 
-    !isFlipped && flipCard();
+    !isFlipped && !cardsGuessed.includes(cardKey) && flipCard();
   };
 
   return (
@@ -62,13 +96,15 @@ const BoardView = ({ getPhotos }) => {
       ) : (
         cards.map((cardId, i) => (
           <CardView
-            key={shortid.generate()}
-            cardKey={i}
+            key={keys[i]}
+            cardKey={keys[i]}
             cardId={cardId}
             background={randomBg}
             cardImgUrl={`https://picsum.photos/150?image=${cardId}`}
             handleFlippingCard={handleFlippingCard}
-            isFlipped={i === cardFlipped ? isFlipped : null}
+            isFlipped={
+              cardFlipped === keys[i] || cardsGuessed.includes(keys[i])
+            }
           />
         ))
       )}
